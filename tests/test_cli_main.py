@@ -24,7 +24,7 @@ MOCK_WORKFLOW_RUNS = {
 
 @pytest.fixture
 def mock_github_client():
-    with patch("src.fetcher.github_client.GitHubClient") as mock_client:
+    with patch("src.cli.main.GitHubClient") as mock_client:
         instance = MagicMock()
         instance.get_workflow_runs.return_value = MOCK_WORKFLOW_RUNS
         instance.get_log_url.return_value = "http://example.com/log"
