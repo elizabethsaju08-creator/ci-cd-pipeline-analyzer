@@ -1,0 +1,50 @@
+name: CI/CD Pipeline Analyzer
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest
+
+      - name: Lint code
+        run: |
+          pip install flake8
+          flake8 src --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 src --exit-zero --max-complexity=10 --max-line-length=120 --statistics
+
+      - name: Run unit tests
+        run: |
+          pytest tests/ --maxfail=1 --disable-warnings -q
+
+      - name: Generate pipeline logs
+        run: |
+          echo "Pipeline executed at $(date)" > pipeline_log.txt
+          echo "Python version:" >> pipeline_log.txt
+          python --version >> pipeline_log.txt
+          echo "Installed packages:" >> pipeline_log.txt
+          pip list >> pipeline_log.txt
+
+      - name: Upload logs as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: pipeline-logs
+          path: pipeline_log.txt

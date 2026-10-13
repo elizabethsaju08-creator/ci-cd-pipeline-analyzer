@@ -1,0 +1,41 @@
+2026-10-13T10:22:01Z  Starting CI/CD pipeline...
+2026-10-13T10:22:01Z  Checking out repository
+Run actions/checkout@v3
+✓ Repository checked out
+
+2026-10-13T10:22:03Z  Setting up Python 3.10
+Run actions/setup-python@v4
+✓ Python 3.10 installed
+
+2026-10-13T10:22:05Z  Installing dependencies
+Run pip install -r requirements.txt
+✓ Dependencies installed
+
+2026-10-13T10:22:08Z  Running flake8 linting
+Run flake8 src
+WARNING: src/parser/log_parser.py:42: DeprecationWarning: 'warn' is deprecated
+✓ Linting completed with warnings
+
+2026-10-13T10:22:10Z  Running unit tests
+Run pytest tests/
+test_parser.py::test_extract_errors PASSED
+test_parser.py::test_extract_warnings PASSED
+test_metrics.py::test_compute_duration PASSED
+test_ai.py::test_ai_summary FAILED
+ERROR: AI summary returned empty string
+Retrying test...
+test_ai.py::test_ai_summary PASSED (retry)
+
+2026-10-13T10:22:15Z  Detecting flaky tests
+Flaky test detected: test_ai_summary (retry count: 1)
+
+2026-10-13T10:22:17Z  Pipeline duration: 16 seconds
+2026-10-13T10:22:17Z  Total steps executed: 6
+
+2026-10-13T10:22:18Z  Generating HTML report
+✓ Report generated: report.html
+
+2026-10-13T10:22:18Z  Uploading artifacts
+✓ pipeline_log.txt uploaded
+
+2026-10-13T10:22:19Z  CI/CD pipeline completed successfully
