@@ -4,12 +4,13 @@ import sys
 from src.cli.main import main
 
 MOCK_LOG = """
-2026-10-13T10:22:01Z Starting CI/CD pipeline...
-2026-10-13T10:22:03Z Step: Checkout repository
-2026-10-13T10:22:05Z Step: Install dependencies
-2026-10-13T10:22:10Z Step: Run tests
-2026-10-13T10:22:15Z Pipeline completed
+10:22:01 Starting CI/CD pipeline...
+10:22:03 Step: Checkout repository
+10:22:05 Step: Install dependencies
+10:22:10 Step: Run tests
+10:22:15 Pipeline completed
 """
+
 
 MOCK_WORKFLOW_RUNS = {
     "workflow_runs": [
