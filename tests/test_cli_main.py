@@ -1,8 +1,8 @@
 import pytest
 from unittest.mock import patch, MagicMock
+import sys
 from src.cli.main import main
 
-# Mock GitHub API response
 MOCK_WORKFLOW_RUNS = {
     "workflow_runs": [
         {
@@ -36,19 +36,35 @@ def mock_openai():
 
 
 def test_main_runs_successfully(mock_github_api, mock_openai):
-    """Test that main() runs end-to-end with mocked APIs."""
-    result = main(
-        repo="octocat/hello-world",
-        token="dummy",
-        ai_key="dummy"
-    )
-    assert result is True
+    """Test main() end-to-end with mocked APIs."""
+    test_args = [
+        "main",
+        "--repo", "octocat/hello-world",
+        "--token", "dummy",
+        "--ai-key", "dummy"
+    ]
+    with patch.object(sys, "argv", test_args):
+        result = main()
+        assert result is True
+
 
 def test_main_requires_github_token():
-    with pytest.raises(SystemExit):
-        main(repo="octocat/hello-world", token=None, ai_key="dummy")
+    test_args = [
+        "main",
+        "--repo", "octocat/hello-world",
+        "--ai-key", "dummy"
+    ]
+    with patch.object(sys, "argv", test_args):
+        with pytest.raises(SystemExit):
+            main()
+
 
 def test_main_requires_openai_key():
-    with pytest.raises(SystemExit):
-        main(repo="octocat/hello-world", token="dummy", ai_key=None)
-
+    test_args = [
+        "main",
+        "--repo", "octocat/hello-world",
+        "--token", "dummy"
+    ]
+    with patch.object(sys, "argv", test_args):
+        with pytest.raises(SystemExit):
+            main()
