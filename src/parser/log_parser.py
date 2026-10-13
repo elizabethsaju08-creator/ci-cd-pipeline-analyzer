@@ -20,10 +20,10 @@ class LogParser:
         return steps
 
     def extract_timestamps(self):
-    timestamps = []
-    for line in self.lines:
-        match = TIMESTAMP_PATTERN.search(line)
-        if match:
-            timestamps.append(match.group(1))  # only HH:MM:SS
-    return timestamps
+        timestamps = []
+        for line in self.lines:
+            match = TIMESTAMP_PATTERN.search(line)
+            if match:
+                timestamps.append(match.group(1))  # only HH:MM:SS
+        return timestamps
 
