@@ -57,5 +57,8 @@ def main():
 
     print("Report generated: report.html")
 
+    return True
+
 if __name__ == "__main__":
     main()
+    
