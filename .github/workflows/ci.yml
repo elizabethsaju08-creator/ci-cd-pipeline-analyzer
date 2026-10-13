@@ -44,7 +44,7 @@ jobs:
           pip list >> pipeline_log.txt
 
       - name: Upload logs as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: pipeline-logs
           path: pipeline_log.txt
