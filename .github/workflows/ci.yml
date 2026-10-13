@@ -33,6 +33,7 @@ jobs:
 
       - name: Run unit tests
         run: |
+          export PYTHONPATH=./src
           pytest tests/ --maxfail=1 --disable-warnings -q
 
       - name: Generate pipeline logs
